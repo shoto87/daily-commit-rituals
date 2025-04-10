@@ -1,0 +1,25 @@
+name: Daily Commit
+
+on:
+  schedule:
+    - cron: "0 4 * * *"  # Runs daily at 4 AM UTC
+  workflow_dispatch:    # Allows manual trigger too
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Make random change
+        run: |
+          echo "Commit made at $(date)" >> activity.txt
+
+      - name: Commit and push
+        run: |
+          git config user.name "Commit Bot"
+          git config user.email "iampratik70@gmail.com"
+          git add .
+          git commit -m "Daily green square 🌱"
+          git push
